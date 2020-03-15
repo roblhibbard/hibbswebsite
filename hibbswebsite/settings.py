@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -27,22 +26,25 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
-
 # Application definition
 
 INSTALLED_APPS = [
-    'account.apps.AccountConfig',
     'courses.apps.CoursesConfig',
+    'account.apps.AccountConfig',
+    'students.apps.StudentsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'embed_video',
     'social_django',
+    'memcache_status',
 ]
 
 MIDDLEWARE = [
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -50,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
 ]
 
 ROOT_URLCONF = 'hibbswebsite.urls'
@@ -57,8 +60,7 @@ ROOT_URLCONF = 'hibbswebsite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -73,7 +75,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'hibbswebsite.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
@@ -83,7 +84,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -103,7 +103,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -117,16 +116,20 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATICFILES_DIRS = os.path.join(BASE_DIR, 'static/'),
 
-LOGIN_REDIRECT_URL = 'dashboard'
+from django.urls import reverse_lazy
+LOGIN_REDIRECT_URL = reverse_lazy('student_course_list')
+
+#LOGIN_REDIRECT_URL = 'dashboard'
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
+
+
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
@@ -138,13 +141,27 @@ AUTHENTICATION_BACKENDS = [
 
 ]
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # social auth settings
-SOCIAL_AUTH_FACEBOOK_KEY = '216197156419907' # Facebook App ID
-SOCIAL_AUTH_FACEBOOK_SECRET = '2139027d440ec88580d27a3a59d964e4' # Facebook App Secret
+SOCIAL_AUTH_FACEBOOK_KEY = '216197156419907'  # Facebook App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = '2139027d440ec88580d27a3a59d964e4'  # Facebook App Secret
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 
 SOCIAL_AUTH_AZUREAD_OAUTH2_KEY = 'b424b2ba-3c5d-4d55-bc56-6ad7f2f54ea9'
 SOCIAL_AUTH_AZUREAD_OAUTH2_SECRET = 's2nAFZ2Dnqwr-4:Dc/wz:gV0bEL9b]:z'
 SOCIAL_AUTH_AZUREAD_TENANT_OAUTH2_TENANT_ID = '95e2ed24-7e97-4c57-b128-14017d9f16b9'
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}
+
+CACHE_MIDDLEWARE_ALIAS = 'default'
+CACHE_MIDDLEWARE_SECONDS = 60 * 15  # 15 minutes
+CACHE_MIDDLEWARE_KEY_PREFIX = 'hibbswebsite'
