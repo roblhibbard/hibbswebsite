@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} {{ block.super }} | Dashboard {% endblock %}
+{% block content %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+   {{ form.media }}
+
+    <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+            <!-- main content area start -->
+            <div class="main-content">
+                <!-- header area start -->
+                <div class="header-area">
+                    <div class="row align-items-center">
+                        <!-- nav and search button -->
+                        <div class="col-md-6 col-sm-8 clearfix">
+                            <div class="nav-btn pull-left">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                            <div class="search-box pull-left">
+                                <form action="#">
+                                    <label>
+                                        <input type="text" name="search" placeholder="Search..." required>
+                                    </label>
+                                    <i class="ti-search"></i>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- profile info & task notification -->
+                        <div class="col-md-6 col-sm-4 clearfix">
+                            <ul class="notification-area pull-right">
+                                <li id="full-view"><i class="ti-fullscreen"></i></li>
+                                <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- header area end -->
+                <!-- page title area start -->
+                <div class="page-title-area">
+                    <div class="row align-items-center">
+                        <div class="col-sm-6">
+                            <div class="breadcrumbs-area clearfix">
+                                <h4 class="page-title pull-left">Dashboard</h4>
+                                <ul class="breadcrumbs pull-left">
+                                    {% if request.user.teacherprofile %}
+                                    <li><span>{{ request.user.teacherprofile.first_name }} {{ request.user.teacherprofile.last_name }}</span></li>
+                                    {% else %}
+                                    <li><span>{{ request.user.studentprofile.first_name }} {{ request.user.studentprofile.last_name }}</span></li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 clearfix">
+                            <div class="user-profile pull-right">
+                                {% if request.user.studentprofile %}
+                                    <img class="avatar user-thumb" src="{{ request.user.studentprofile.mugshot.url }}" alt="avatar">
+                                {% else %}
+                                <img class="avatar user-thumb" src="{{ request.user.teacherprofile.mugshot.url }}" alt="avatar">
+                                {% endif %}
+                                <h4 class="user-name dropdown-toggle" data-toggle="dropdown">{{ request.user }}<i class="fa fa-angle-down"></i></h4>
+                                <div class="dropdown-menu">
+
+                                    <a class="dropdown-item" href="{% url 'account:logout'%}">Log Out</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- page title area end -->
+                <div class="main-content-inner">
+                    <div class="row">
+                        <!-- seo fact area start -->
+                        <div class="col-lg-8">
+                            <div class="row">
+                                <div class="col-md-6 mt-5 mb-3">
+                                    <div class="card">
+                                        <div class="seo-fact sbg1">
+                                            <a {% if request.user.teacherprofile %}  href="{% url 'courses:manage_course_list'%}" {% else %}
+                                                                       href="{% url 'courses:course_list_view'%}" {% endif %}>
+                                                <div class="p-4 d-flex justify-content-between align-items-center">
+                                                        <div class="seofct-icon"><i class="fa fa-book"></i> Your Courses</div>
+                                                        <h2>
+                                                            {{request.user.teacherprofile.courses_created.count }}
+                                                        </h2>
+                                                    </div>
+
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                        <!-- seo fact area end -->
+
+                        <!-- Social Campain area start -->
+
+                        <!-- Social Campain area end -->
+                        <!-- Statistics area start -->
+
+
+                       <!-- Statistics area end -->
+                        <!-- Advertising area start -->
+
+                        <!-- Advertising area end -->
+                        <!-- sales area start -->
+
+                        <!-- sales area end -->
+                        <!-- timeline area start -->
+
+                        <!-- timeline area end -->
+                        <!-- map area start -->
+                                               <!-- map area end -->
+
+            </div>
+                </div>
+            </div>
+            <!-- main content area end -->
+            <!-- footer area start-->
+            <footer>
+                <div class="footer-area">
+                    <p>© Copyright {% now "Y" %}. All right reserved</p>
+                </div>
+            </footer>
+            <!-- footer area end-->
+        <!-- page container area end -->
+
+
+        <!-- offset area start -->
+        <!--  -->
+{% endblock %}
+

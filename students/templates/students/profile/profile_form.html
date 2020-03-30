@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+   {% bootstrap_css %}
+   {% bootstrap_javascript jquery='full' %}
+   {{ StudentProfileCreateForm.media }}
+    {% block title %}
+        {% if object %} Edit {{ object.first_name }} {% else %} Create Profile {% endif%} 
+{% endblock %}
+{% block content %}
+
+<div class="main-content-inner">
+    <div class="row">
+    <div class="col-lg-6 col-ml-12">
+        <div class="row">
+            <h1 class="mt-3 mb-0">{% if object %} Edit "{{ object.first_name }}"{% endif %}</h1>
+            <!-- Textual inputs start -->
+            <div class="col-12 mt-3">
+                <form method="post" >
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    {% buttons %}
+                    <button type="submit" class="btn btn-primary">Update
+                    {% endbuttons %}
+                    </button>
+                </form>
+            </div>
+            </div>
+    </div>
+    </div>
+</div>
+{% endblock %}

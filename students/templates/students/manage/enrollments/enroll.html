@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block title %} {{ block.super }} | Edit Content {% endblock %}
+{% block content %}
+
+<div class="main-content-inner">
+  <div class="row">
+     <div class="col-lg-6 col-ml-12">
+        <div class="row">
+          <div class="col-12 mt-5">
+              <div class="module">
+
+                    {% if request.user.is_authenticated %}
+                        <h2>Class Enrollment</h2>
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            {{ form|crispy }}
+                            <input type="submit" value="Enroll in Class">
+                        </form>
+                    {% endif %}
+              </div>
+
+         </div>
+        </div>
+    </div>
+    </div>
+</div>
+{% endblock %}

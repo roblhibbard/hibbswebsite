@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{{ form.media }}
+{% block title %} Register Teacher {% endblock %}
+{% block content %}
+        <h2>Teachers Registration</h2>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ bootstrap_form.as_p }}
+            <p><input type="submit" value="SignUp"></p>
+        </form>
+
+{% endblock %}

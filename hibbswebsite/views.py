@@ -1,6 +1,11 @@
-from django.urls import reverse
-from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView
+from django.http import HttpResponse
 
-class HomePage(TemplateView):
-    template_name = 'account/dashboard.html'
+
+class HomePageView(TemplateView):
+    template_name = 'main_home.html'
+
+class SupportPageView(TemplateView):
+    template_name = 'support.html'
+
+

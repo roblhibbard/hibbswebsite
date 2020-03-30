@@ -1,0 +1,90 @@
+{% extends "navbar.html" %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+
+
+                <main role="main" class="inner cover pb-2">
+                    <h2 class="cover-heading">“Going in one more round when you don’t think you can. That’s what makes all the difference in your life.” – Rocky Balboa</h2>
+                    <p class="lead"></p>
+                    <hr class="my-1">
+
+                </main>
+                <div class="col-sm-6">
+                     <p><iframe width="520" height="260" src="https://web.microsoftstream.com/embed/video/a570ff34-dd9e-4c92-832a-223596fbb642?autoplay=false&amp;showinfo=true"
+                               allowfullscreen style="border:none;"></iframe> </p>
+                </div>
+                <div class="col-sm-6 mt-3">
+                    <div class="card mh-75">
+                        <div class="card-body">
+                            <h5 class="card-title">Before Tuesday March 31 </h5>
+                            <p class="card-text">We need to make sure we have all the distance learning apps required for our classes. Make sure you have loaded
+                            each of the appls listed below. <br> If you need help with any of the apps click get help. </p>
+                            <a href="{% url "support" %}" target="_blank" class="btn btn-primary">Get Help</a>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <div class="container-fluid pb-5">
+
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="card mh-75">
+                    <div class="card-body">
+                        <h5 class="card-title">Microsoft Teams</h5>
+                        <p class="card-text">We will use Microsoft Teams for most communication and chats
+                            and live class meetings</p>
+                        <a href="https://teams.microsoft.com/" target="_blank" class="btn btn-primary">Open Teams</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card mh-75">
+                    <div class="card-body">
+                        <h5 class="card-title">Microsoft Kaizala</h5>
+                        <p class="card-text">A simple and secure work management and mobile messaging app.</p>
+                        <a href="https://products.office.com/en-ww/business/microsoft-kaizala?market=af#office-CustomMosaicCta-5el612o" target="_blank" class="btn btn-primary">Download Kaizala</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3" >
+                <div class="card" style="height: 200px">
+                    <div class="card-body">
+                        <h5 class="card-title">Remind App</h5>
+                        <p class="card-text">A free, safe, messaging app for school communications.</p><br>
+                        <a href="https://www.remind.com/apps/" target="_blank" class="btn btn-primary">Download Remind</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card" style="height: 200px">
+                    <div class="card-body">
+                        <h5 class="card-title">Zoom App</h5>
+                        <p class="card-text">Secure video webinars for classroom Learning </p><br>
+
+                        <a href="https://www.remind.com/apps/" target="_blank" class="btn btn-primary">Download Zoom Client</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <script>
+        $(document).ready(function () {
+            {% block domready %}
+            {% endblock %}
+        });
+    </script>
+    <div>
+
+    <footer class="footer py-3">
+        <div class="container-fluid">
+            <span class="text-muted">Hibbards Class 2020</span>
+        </div>
+    </footer>
+</div>
+{% endblock %}
