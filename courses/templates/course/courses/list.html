@@ -65,7 +65,7 @@
                             <li>
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-book"></i><span>Courses</span></a>
                                 <ul class="collapse">
-                                    <!-- <li><a href="{% url 'accordion'%}">All Courses</a></li> -->
+                                    <!-- <li><a href="#">All Courses</a></li> -->
                                         
                                         <li {% if not subject %} class="selected" {% endif %}>
                                                 <a href="{% url 'courses:course_list_view' %}">All Courses</a>
@@ -76,7 +76,7 @@
                             <li>
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-book"></i><span>Subjects</span></a>
                                 <ul class="collapse">
-                                    <!-- <li><a href="{% url 'accordion'%}">All Courses</a></li> -->
+                                    <!-- <li><a href="#">All Courses</a></li> -->
                                         
                                     {% for s in subjects %}
                                     <li {% if subject == s %} class = 'selected' {% endif %}>
@@ -91,7 +91,7 @@
                             <li>
                             <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-check-square"></i><span>Grades</span></a>
                             <ul class="collapse">
-                                <!-- <li><a href="{% url 'accordion'%}">All Courses</a></li> -->
+                                <!-- <li><a href="#">All Courses</a></li> -->
                                     
                                     <!-- <li {% if not subject %} class="selected" {% endif %}>
                                             <a href="{% url 'courses:course_list_view' %}">All Courses</a>

@@ -19,14 +19,14 @@ from django.views.generic.edit import (
 from django.views.generic.list import ListView
 
 from teachers.models import TeacherProfile
-from students.models import CourseEnrollment
+
 from .forms import ModuleFormset
 from .models import (
     Course,
     Module,
     Content,
-    Subject
-)
+    Subject,
+    CourseEnrollment)
 
 
 # Create your views here.
@@ -133,6 +133,7 @@ class CourseDetailView(DetailView):
         return enrollment
 
 
+
 # Module
 
 class CourseModuleUpdateView(TemplateResponseMixin, View):
@@ -165,8 +166,6 @@ class CourseModuleUpdateView(TemplateResponseMixin, View):
 
 
 # Content
-
-
 class ContentCreateUpdateView(TemplateResponseMixin, View):
     module = None
     model = None
