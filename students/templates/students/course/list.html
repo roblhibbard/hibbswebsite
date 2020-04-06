@@ -1,18 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'index.html' %}
+{% load static %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>My Courses</title>
 </head>
-<body>
+{% block content %}
+ <div class="main-content-inner">
+    <div class="row">
+        <div class="col-lg-9 col-ml-12">
+            <div class="row">
+                <div class="col-12 mt-5">
+
     <div class="module">
 
-         {% for course in course %}
+         {% for course in courseenrollment_list %}
             <div class="course-info">
                 <h3>{{ course.title }}</h3>
-                <p><a href="{% url 'students_profile:student_course_detail_view' course  %}">Access Contents</a></p>
+                <p><a href="{% url 'students_profile:student_course_detail_view' course.course_id %}">Access Contents</a></p>
             </div>
             {% empty %}
             <p>
@@ -22,5 +28,10 @@
             </p>
         {% endfor %} 
     </div>
-</body>
-</html>
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>
+
+{% endblock %}

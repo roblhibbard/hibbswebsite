@@ -15,13 +15,19 @@
         </library>
       </libraries>
     </data-source>
-    <data-source source="LOCAL" name="Django default" uuid="655b99d3-23d6-46f4-8fa2-978906917da5">
+    <data-source source="LOCAL" name="django" uuid="86fef719-d616-4d3c-b6b0-d55280e31201">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://rhibbard.mysql.pythonanywhere-services.com:3306/rhibbard$hibbs</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="Django default" uuid="8a303788-cb44-408e-8c07-b3b4f0eb02d9">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <imported>true</imported>
       <remarks>$PROJECT_DIR$/hibbswebsite/settings.py</remarks>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\Robert\PycharmProjects\hibbswebsite\db.sqlite3</jdbc-url>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/db.sqlite3</jdbc-url>
     </data-source>
   </component>
 </project>

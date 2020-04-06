@@ -8,19 +8,19 @@ from django.views.generic.base import TemplateResponseMixin, View
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import (
     DeleteView,
-    FormView, UpdateView, CreateView)
-from django.views.generic.list import ListView, MultipleObjectTemplateResponseMixin
+    CreateView)
+from django.views.generic.list import ListView
+from django.contrib.auth import get_user_model
 
 from accounts.forms import UserCreateForm
+from .models import StudentProfile
 from accounts.models import User
 from courses.forms import ModuleFormset
-from courses.models import Course
+from courses.models import Course, CourseEnrollment
+from courses.utils_mixins import CourseIDMixin
 from teachers.models import TeacherProfile
 from .forms import (
-    StudentProfileCreateForm, CourseEnrollmentForm, CourseEnrollmentFormSet)
-from .models import StudentProfile, CourseEnrollment
-from django.forms.models import modelform_factory
-from django.template.loader import render_to_string
+    StudentProfileCreateForm, CourseEnrollmentFormSet)
 
 
 def register(request):
@@ -80,16 +80,7 @@ class StudentDeleteProfileView(DeleteView):
 # Course Students Are Enrolled in
 class StudentCourseList(LoginRequiredMixin, ListView):
     model = CourseEnrollment
-    context_object_name = 'course'
     template_name = 'students/course/list.html'
-
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.qs1 = CourseEnrollment.objects.values_list('student', 'course_enrolled')
-        self.qs2 = Course.objects.all()
-
-    def get_queryset(self):
-        return self.queryset
 
 
 class StudentEnrollCourseView(TemplateResponseMixin, View):
@@ -139,37 +130,54 @@ def student_enroll(request):
     })
 
 
-def get_success_url(self):
-    return reverse('students_profile:student_profile_detail', kwargs={'pk': self.user.pk})
+class CourseEnrollmentViewMixin(object):
+    model = Course
+
+    def get_success_url(self):
+        return reverse_lazy('course', kwargs={'sec': self.kwargs['course']})
 
 
-class CourseEnrollmentCreateView(CreateView):
-    context_object_name = 'student_enroll'
-    fields = ['student', 'course_enrolled']
-    model = CourseEnrollment
+class CourseEnrollmentCreateView(LoginRequiredMixin, CreateView):
+    course = None
+    user = None
     template_name = 'students/manage/enrollments/courseenrollment_form.html'
+    fields = ['user', 'course']
+    model = CourseEnrollment
+
+    def form_valid(self, form):
+        self.course = form.cleaned_data['course']
+        self.user = form.cleaned_data['user']
+
+        print(self.course.pk)
+        print(self.user.pk)
+        return super(CourseEnrollmentCreateView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('students_profile:student_course_detail_view', args=[self.user.pk, self.course.pk])
 
 
 class StudentCourseDetailView(DetailView):
     model = Course
     template_name = 'students/course/detail.html'
-
-    def get_queryset(self):
-        qs = super(StudentCourseDetailView, self).get_queryset()
-        return qs.filter(students__in=[self.request.user])
+    context_object_name = 'module'
 
     def get_context_data(self, **kwargs):
-        context = super(StudentCourseDetailView, self).get_context_data(**kwargs)
-
+        context = super(StudentCourseDetailView,
+                        self).get_context_data(**kwargs)
         # get course object
         course = self.get_object()
+        print(course)
         if 'module_id' in self.kwargs:
+            print(self.kwargs)
             # get current module
             context['module'] = course.modules.get(
-                id=self.kwargs['module_id']
-            )
+                                    id=self.kwargs['module_id'])
+            print(context['module'])
+            print('in module_id')
         else:
+            # get first module
             context['module'] = course.modules.all()[0]
+            print('not in module_id')
         return context
 
 

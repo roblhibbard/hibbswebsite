@@ -1,8 +1,8 @@
 from django import forms
-from django.forms import inlineformset_factory
 from django.forms import modelformset_factory
-from courses.models import Course
-from students.models import StudentProfile, CourseEnrollment
+from courses.models import Course, CourseEnrollment
+from courses.utils_mixins import CourseIDMixin
+from students.models import StudentProfile
 
 
 class StudentProfileCreateForm(forms.ModelForm):
@@ -35,16 +35,18 @@ class StudentProfileCreateForm(forms.ModelForm):
 #
 # A single argument is required:
 
+class CourseEnrollmentForm(forms.ModelForm, CourseIDMixin):
 
-class CourseEnrollmentForm(forms.ModelForm):
-    courses = forms.ModelChoiceField(widget=forms.CheckboxSelectMultiple,
-                                     queryset=Course.objects.all())
-    users = forms.ModelChoiceField(widget=forms.CheckboxSelectMultiple,
-                                   queryset=StudentProfile.objects.all())
+    def get_queryset(self, courses, user):
+        courses = forms.ModelChoiceField(widget=forms.CheckboxSelectMultiple,
+                                     queryset=Course.objects.filter(pk=self.kwargs['crs']))
+        users = forms.ModelChoiceField(widget=forms.CheckboxSelectMultiple,
+                                      queryset=StudentProfile.objects.all())
+        return self.get_queryset(self, courses, user)
 
     class Meta:
         model = CourseEnrollment
-        fields = ['course_enrolled', 'student']
+        fields = ['course', 'user']
 
 
 CourseEnrollmentFormSet = modelformset_factory(CourseEnrollment, exclude=('date_created',))

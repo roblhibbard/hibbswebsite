@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'memcache_status',
     'debug_toolbar',
     'bootstrap_datepicker_plus',
+    'reset_migrations',
 
     # Local Apps
 
@@ -56,7 +57,7 @@ INSTALLED_APPS = [
     'teachers.apps.TeachersConfig',
     'schools.apps.SchoolsConfig',
     'pages.apps.PagesConfig',
-    'grade.apps.GradeConfig',
+
 
 ]
 

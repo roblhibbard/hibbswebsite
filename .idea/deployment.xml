@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" persistUploadOnCheckin="false" />
+  <component name="PublishConfigData" serverName="hibbswebsite" persistUploadOnCheckin="false">
+    <serverData>
+      <paths name="Copy of project-level server 'hibbswebsite'">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/tmp/pycharm_project_17" local="$PROJECT_DIR$" web="ssh.pythonanywhere.com" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="hibbswebsite">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/hibbswebsite" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
 </project>

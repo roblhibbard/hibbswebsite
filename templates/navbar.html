@@ -12,43 +12,92 @@
 
 </head>
 <body>
-    <div class="container d-flex w-100 h-100 p-3 mx-auto flex-column">
-    <header class="masthead mb-lg-5">
-        <div class="inner">
-            <h3 class="masthead-brand">Hibbards Class</h3>
-            <nav class="nav nav-masthead justify-content-center">
+<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Hibbards Class</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample01"
+            aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarsExample01">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
                 <a class="nav-link active" href="{% url "main_home" %}">Home</a>
+            </li>
+            <li class="nav-item">
                 {% if user.is_authenticated %}
                     {% if request.user.is_staff %}
-                        <a class="nav-item nav-link" href="{% url "courses:manage_course_list" %}" class="btn btn-simple">Courses</a>
-
-                        <a class="nav-item nav-link" href="{% url "support" %}"class="btn btn-simple">Support</a>
-                        <a class="nav-item nav-link" href="{% url "account:logout" %}"class="btn btn-simple">Log Out</a>
+                        <a class="nav-item nav-link" href="{% url "courses:manage_course_list" %}"
+                           class="btn btn-simple">Courses</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-item nav-link" href="{% url "support" %}" class="btn btn-simple">Resources</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-item nav-link" href="{% url "video" %}"
+                               class="btn btn-simple">Video</a>
+                        </li>
+                        li class="nav-item">
+                <a class="nav-item nav-link" href="{% url "schedule" %}" class="btn btn-simple">schedule</a>
+            </li>
+                        <li class="nav-item">
+                            <a class="nav-item nav-link" href="{% url "account:logout" %}" class="btn btn-simple">Log
+                                Out</a>
+                        </li>
                     {% else %}
-
-                        <a class="nav-item nav-link" href="{% url "support" %}"class="btn btn-simple">Support</a>
-                        <a class="nav-item nav-link" href="{% url "students_profile:student_course_list" %}"class="btn btn-simple">Courses</a>
-                        <a class="nav-item nav-link" href="{% url "account:logout" %}"class="btn btn-simple">Log Out</a>
+                        <li class="nav-item">
+                            <a class="nav-item nav-link" href="{% url "support" %}" class="btn btn-simple">Resources</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-item nav-link" href="{% url "students_profile:student_course_list" %}"
+                               class="btn btn-simple">Courses</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-item nav-link" href="{% url "video" %}"
+                               class="btn btn-simple">Video</a>
+                        li class="nav-item">
+                <a class="nav-item nav-link" href="{% url "schedule" %}" class="btn btn-simple">schedule</a>
+            </li>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-item nav-link" href="{% url "account:logout" %}" class="btn btn-simple">Log
+                                Out</a>
+                        </li>
                     {% endif %}
                 {% else %}
-
-                    <a class="nav-item nav-link" href="{% url "support" %}"class="btn btn-simple">Support</a>
-                    <a class="nav-item nav-link" href="{% url "account:login" %}"class="btn btn-simple">Log in</a>
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="{% url "support" %}" class="btn btn-simple">Resources</a>
+                    </li>
                 {% endif %}
-            </nav>
-        </div>
-    </header>
-    <div id="content">
+
+            {% if not user.is_authenticated %}
+
+                <li class="nav-item">
+                <a class="nav-item nav-link" href="{% url "schedule" %}" class="btn btn-simple">schedule</a>
+            </li>
+                <li class="nav-item">
+                            <a class="nav-item nav-link" href="{% url "video" %}"
+                               class="btn btn-simple">Video</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-item nav-link" href="{% url "account:login" %}" class="btn btn-simple">Log in</a>
+            </li>
+
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+
+
+    <div class="container-fluid">
     {% block content %}
 
-  </div>
-    </div>
+
       <footer class="footer py-3">
-        <div class="container-fluid">
+
             <span class="text-muted">Hibbards Class 2020</span>
-        </div>
+
     </footer>
 {% endblock %}
+    </div>
 </body>
-
 </html>

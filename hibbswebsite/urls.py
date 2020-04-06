@@ -21,20 +21,26 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
-from hibbswebsite.views import HomePageView
+from hibbswebsite.views import HomePageView, VideoPageView, SchedulePageView
 from hibbswebsite.views import SupportPageView
 
 urlpatterns = [
     path('', HomePageView.as_view(), name="main_home"),
+    path('video/', VideoPageView.as_view(), name="video"),
     path('support/', SupportPageView.as_view(), name="support"),
+    path('schedule/', SchedulePageView.as_view(), name="schedule"),
     path('admin/', admin.site.urls),
+
+
+    path('login/', include('accounts.urls', namespace='account')),
+
     path('students/', include('students.urls', namespace='students_profile')),
     path('teachers/', include('teachers.urls', namespace='teacher_profile')),
     path('courses/', include('courses.urls', namespace='courses')),
-    path('login', include('accounts.urls', namespace='account')),
+
     path('home/', TemplateView.as_view(template_name='home.html'), name='home'),
     path('dashboard/', TemplateView.as_view(template_name='index.html'), name='dashboard'),
-    path('accordion/', TemplateView.as_view(template_name='accordion.html'), name='accordion'),
+
     # Templates
     path('alert/', TemplateView.as_view(template_name='alert.html'), name='alert'),
 
