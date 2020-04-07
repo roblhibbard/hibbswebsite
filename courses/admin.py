@@ -3,7 +3,9 @@ from .models import (
     Course,
     Subject,
     Module,
-    Content
+    Content,
+    Assignment,
+    CourseEnrollment,
 )
 
 
@@ -28,4 +30,13 @@ class CourseAdmin(admin.ModelAdmin):
     inlines = [ModuleInline]
 
 
+@admin.register(Assignment)
+class AssignmentAdmin(admin.ModelAdmin):
+    list_display = ('title', 'instruction', 'date_due', 'date_created', 'date_updated', 'points_possible', 'category',)
+    list_filter = ('date_due',)
+
+
+
 admin.site.register(Content)
+admin.site.register(CourseEnrollment)
+

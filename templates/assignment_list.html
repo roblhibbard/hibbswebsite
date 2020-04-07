@@ -1,0 +1,88 @@
+{% extends 'navbar.html' %}
+{% load static %}
+{% block title %} Assignment List {% endblock %}
+
+{% block content %}
+    <div class="row-cols-sm-3 d-flex justify-content-center">
+        <div>
+             <h1> Hibbard's Class Assignments </h1>
+
+            <h3> {{ today|date:'l' }}  {{ today|date:'m-d-Y' }}</h3>
+         </div>
+
+    </div>
+    <div class="row justify-content-md-center">
+
+            <div class="col col-lg-3">
+             <h4> Desktop Support Classes</h4></div>
+                <div class="col-md-auto">
+                   <h4>Programming Courses</h4>
+                </div>
+    </div>
+
+        <div class="row justify-content-md-center">
+
+            <div class="col col-lg-3">
+                    {% for desktop in desktop %}
+                    <div id="desktop">
+                        <div class="card">
+
+                            <div class="card-header" id="heading{{ desktop.pk }}">
+                                <h3 class="mb-0">
+                                    <button class="btn btn-link" data-toggle="collapse"
+                                            data-target="#collapse{{ desktop.pk }}"
+                                            aria-expanded="false" aria-controls="collapse{{ desktop.pk }}">
+                                        {{ desktop.course.title }} <br> Date Due:{{ desktop.date_due }}
+                                    </button>
+
+                                </h3>
+                            </div>
+                            <div id="collapse{{ desktop.pk }}" class="collapse"
+                                 aria-labelledby="heading{{ desktop.pk }}" data-parent="#desktop">
+                                <div class="card-body">
+                                    {{ desktop.instruction }}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    {% endfor %}
+            </div>
+
+
+
+
+
+                 <div class=" col-md-auto ">
+                    {% for programming in programming %}
+
+                    <div id="programming">
+                        <div class="card">
+                            <div class="card-header" id="heading{{ programming.pk }}1">
+                                <h3 class="mb-0">
+                                    <button class="btn btn-link" data-toggle="collapse"
+                                            data-target="#col{{ programming.pk }}"
+                                            aria-expanded="false" aria-controls="col{{ programming.pk }}">
+                                        {{ programming.course.title }} <br> Date Due:{{ programming.date_due }}
+                                    </button>
+
+                                </h3>
+                            </div>
+                            <div id="col{{ programming.pk }}" class="collapse"
+                                 aria-labelledby="heading{{ programming.pk }}1" data-parent="#programming">
+                                <div class="card-body">
+                                    {{ programming.instruction }}
+                                </div>
+                            </div>
+
+                        </div>
+                    {% endfor %}
+                    </div>
+
+                 </div>
+
+        </div>
+
+
+{% endblock %}
+

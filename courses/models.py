@@ -43,13 +43,6 @@ class Course(models.Model):
         return "{} created by {}".format(self.title, self.owner)
 
 
-class Assignment(models.Model):
-    assignments = models.ForeignKey(Course, related_name='assignments', on_delete=models.CASCADE)
-    title = models.CharField(max_length=200)
-    instruction = models.TextField(blank=False)
-    date_due = models.DateField(auto_now=True)
-
-
 class CourseEnrollment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='users_enrolled')
 
@@ -63,6 +56,34 @@ class CourseEnrollment(models.Model):
 
     def get_absolute_url(self):
         return reverse_lazy("students_profile:student_profile_detail", args=[self.id])
+
+
+class Assignment(models.Model):
+    course = models.ForeignKey(Course, related_name='assignments', on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
+    instruction = models.TextField(blank=False)
+    date_due = models.DateField()
+    date_created = models.DateField(auto_now_add=True, null=True, db_index=True)
+    date_updated = models.DateTimeField(auto_now=True)
+
+    points_possible = models.IntegerField()
+
+    CATEGORIES = {
+        ('essay', "Essay"),
+        ('test', "Test"),
+        ('quiz', "Quiz"),
+        ('ps', "Problem Set"),
+        ('hwk', "Homework"),
+        ('ec', "Extra Credit")
+    }
+
+    category = models.CharField(choices=CATEGORIES, max_length=20)
+
+    def __str__(self):
+        return "[" + self.get_assignment_category() + "] " + str(self.title) + ": " + str(self.instruction)
+
+    def get_assignment_category(self):
+        return dict(self.CATEGORIES).get(str(self.category))
 
 
 class Module(models.Model):

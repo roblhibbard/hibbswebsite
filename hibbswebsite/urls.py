@@ -21,6 +21,8 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
+
+from courses import views
 from hibbswebsite.views import HomePageView, VideoPageView, SchedulePageView
 from hibbswebsite.views import SupportPageView
 
@@ -43,6 +45,7 @@ urlpatterns = [
 
     # Templates
     path('alert/', TemplateView.as_view(template_name='alert.html'), name='alert'),
+    path('assignments/', views.AllAssignmentListView.as_view(), name='assignments')
 
 ]
 

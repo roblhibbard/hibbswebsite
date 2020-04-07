@@ -26,7 +26,9 @@ from .models import (
     Module,
     Content,
     Subject,
-    CourseEnrollment)
+    CourseEnrollment, Assignment)
+
+from datetime import datetime
 
 
 # Create your views here.
@@ -123,7 +125,6 @@ class CourseListView(TemplateResponseMixin, View):
 
 
 class CourseDetailView(DetailView):
-
     model = Course
     template_name = 'course/courses/detail.html'
 
@@ -131,7 +132,6 @@ class CourseDetailView(DetailView):
     def get_enroll(self):
         enrollment = (CourseEnrollment.objects.filter(is_active='True'), self)
         return enrollment
-
 
 
 # Module
@@ -237,3 +237,30 @@ class ModuleContentListView(TemplateResponseMixin, View):
         return self.render_to_response({
             'module': module
         })
+
+
+class AssignmentCreateView(CreateView):
+    model = Course
+
+
+class AssignmentListView(ListView):
+    model = Assignment
+    template_name = 'course/courses/assignments/list.html'
+    fields = ['title', 'instruction', 'date_due', 'date_created', 'date_updated', 'points_possible', 'category', ]
+    queryset = Assignment.objects.all()
+
+
+class AllAssignmentListView(ListView):
+    model = Assignment
+    template_name = 'assignment_list.html'
+    fields = ['title', 'instruction', 'date_due', 'date_created', 'date_updated', 'points_possible', 'category', ]
+
+    today = datetime.now
+
+    def get_context_data(self, **kwargs):
+        context = super(AllAssignmentListView, self).get_context_data(**kwargs)
+        context['desktop'] = Assignment.objects.order_by('date_due').filter(course__slug__contains='ds1')
+        context['programming'] = Assignment.objects.order_by('date_due').filter(course__slug__contains='pg1')
+        print(context['programming'])
+        context['today'] = self.today
+        return context
