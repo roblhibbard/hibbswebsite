@@ -259,8 +259,8 @@ class AllAssignmentListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(AllAssignmentListView, self).get_context_data(**kwargs)
-        context['desktop'] = Assignment.objects.order_by('date_due').filter(course__slug__contains='ds1')
-        context['programming'] = Assignment.objects.order_by('date_due').filter(course__slug__contains='pg1')
+        context['desktop'] = Assignment.objects.order_by('date_due').filter(course__subject__title__contains='desktop')
+        context['programming'] = Assignment.objects.order_by('date_due').filter(course__subject__title__contains='programming')
         print(context['programming'])
         context['today'] = self.today
         return context
