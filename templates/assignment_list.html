@@ -2,6 +2,7 @@
 {% load static %}
 {% block title %} Assignment List {% endblock %}
 
+
 {% block content %}
     <div class="row-cols-sm-3 d-flex justify-content-center">
         <div>
@@ -15,8 +16,11 @@
 
             <div class="col col-lg-3">
              <h4> Desktop Support Classes</h4></div>
-                <div class="col-md-auto">
+                <div class="col-md-4">
                    <h4>Programming Courses</h4>
+                </div>
+                <div class="col-md-4">
+                   <h4>Intro Classes</h4>
                 </div>
     </div>
 
@@ -49,11 +53,7 @@
                     {% endfor %}
             </div>
 
-
-
-
-
-                 <div class=" col-md-auto ">
+                 <div class=" col-md-4 ">
                     {% for programming in programming %}
 
                     <div id="programming">
@@ -72,6 +72,33 @@
                                  aria-labelledby="heading{{ programming.pk }}1" data-parent="#programming">
                                 <div class="card-body">
                                     {{ programming.instruction }}
+                                </div>
+                            </div>
+
+                        </div>
+                    {% endfor %}
+                    </div>
+
+                 </div>
+                <div class=" col-md-4 ">
+                    {% for intro in intro %}
+
+                    <div id="intro">
+                        <div class="card">
+                            <div class="card-header" id="heading{{ intro.pk }}1">
+                                <h3 class="mb-0">
+                                    <button class="btn btn-link" data-toggle="collapse"
+                                            data-target="#col{{ intro.pk }}"
+                                            aria-expanded="false" aria-controls="col{{ intro.pk }}">
+                                        {{ intro.course.title }} <br> Date Due:{{ intro.date_due }}
+                                    </button>
+
+                                </h3>
+                            </div>
+                            <div id="col{{ intro.pk }}" class="collapse"
+                                 aria-labelledby="heading{{ intro.pk }}1" data-parent="#intro">
+                                <div class="card-body">
+                                    {{ intro.instruction }}
                                 </div>
                             </div>
 

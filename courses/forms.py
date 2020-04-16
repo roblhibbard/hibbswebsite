@@ -1,6 +1,8 @@
 from django.forms.models import inlineformset_factory
 
-from .models import Course, Module
+from django import forms
+
+from courses.models import Assignment, Course, Module
 
 ModuleFormset = inlineformset_factory(
     Course,
@@ -9,3 +11,9 @@ ModuleFormset = inlineformset_factory(
     extra=2,
     can_delete=True
 )
+
+
+class AssignmentCreateViewForm(forms.ModelForm):
+    class Meta:
+        model = Assignment
+        fields = '__all__'

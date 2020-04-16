@@ -1,0 +1,57 @@
+{% load static %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+   {{ form.media }}
+
+    {% block content %}
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2 class="text-center">
+                        Timetable
+                    </h2>
+
+                <table class="table table-dark">
+
+                    <thead>
+                        <tr>
+                            <th scope="col"> Period </th>
+                            <th scope="col"> Time </th>
+
+                        </tr>
+                        </thead>
+
+                         <tbody>
+
+                            <tr>
+                                <th scope="row">1</th>
+                               <td> {{ period_1 }}</td>
+
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>{{ period_2 }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Lunch</th>
+                                <td>{{ lunch }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">4</th>
+                                <td>{{ period_3 }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">5</th>
+                                <td>{{ period_4 }}</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </table>
+                </div>
+            </div>
+        </div>
+
+    {% endblock %}

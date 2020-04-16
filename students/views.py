@@ -13,10 +13,10 @@ from django.views.generic.list import ListView
 from django.contrib.auth import get_user_model
 
 from accounts.forms import UserCreateForm
-from .models import StudentProfile
+from .models import StudentProfile, AttendanceTotal, Attendance
 from accounts.models import User
 from courses.forms import ModuleFormset
-from courses.models import Course, CourseEnrollment
+from courses.models import Course, CourseEnrollment, Assign
 from courses.utils_mixins import CourseIDMixin
 from teachers.models import TeacherProfile
 from .forms import (
@@ -179,6 +179,27 @@ class StudentCourseDetailView(DetailView):
             context['module'] = course.modules.all()[0]
             print('not in module_id')
         return context
+
+
+def attendance(request, stud_id):
+    stud = StudentProfile.objects.get(USN=stud_id)
+    ass_list = Assign.objects.filter(class_id_id=stud.class_id)
+    att_list = []
+    for ass in ass_list:
+        try:
+            a = AttendanceTotal.objects.get(student=stud, course=ass.course)
+        except AttendanceTotal.DoesNotExist:
+            a = AttendanceTotal(student=stud, course=ass.course)
+            a.save()
+        att_list.append(a)
+    return render(request, 'students/manage/attendance/attendance.html', {'att_list': att_list})
+
+
+def attendance_detail(request, stud_id, course_id):
+    stud = get_object_or_404(StudentProfile, USN=stud_id)
+    cr = get_object_or_404(Course, id=course_id)
+    att_list = Attendance.objects.filter(course=cr, student=stud).order_by('date')
+    return render(request, 'info/att_detail.html', {'att_list': att_list, 'cr': cr})
 
 
 def upload_student(request):

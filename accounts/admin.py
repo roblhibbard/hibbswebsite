@@ -10,28 +10,30 @@ from .forms import (
 # Register your models here.
 User = get_user_model()
 
+
 class UserAdmin(BaseUserAdmin):
     form = UserAdminChangeForm
     add_form = UserAdminCreationForm
 
-    list_display = ('email',) # display
+    list_display = ('email',)  # display
     list_filter = ('admin', 'staff', 'is_active', 'student')
     fieldsets = (
-        (None, {'fields':('email', 'password')}),
-        ('Permissions', {'fields':('admin', 'staff', 'student', 'is_active', 'groups')})
+        (None, {'fields': ('email', 'password')}),
+        ('Permissions', {'fields': ('admin', 'staff', 'student', 'is_active', 'groups')})
         # ('Group', {'fields'})
     )
 
     add_fieldsets = (
         (
-           None,{
-               'classes':('wide',),
-               'fields':('email', 'password1', 'password2', 'staff', 'student')
-           } 
+            None, {
+                'classes': ('wide',),
+                'fields': ('email', 'password1', 'password2', 'staff', 'student')
+            }
         ),
     )
     search_fields = ('email',)
     ordering = ('email',)
-    filter_horizontal  = ()
+    filter_horizontal = ()
+
 
 admin.site.register(User, UserAdmin)

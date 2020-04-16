@@ -1,3 +1,6 @@
+from datetime import datetime
+
+import holidays
 from django.apps import apps
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
@@ -19,16 +22,13 @@ from django.views.generic.edit import (
 from django.views.generic.list import ListView
 
 from teachers.models import TeacherProfile
-
 from .forms import ModuleFormset
 from .models import (
     Course,
     Module,
     Content,
     Subject,
-    CourseEnrollment, Assignment)
-
-from datetime import datetime
+    CourseEnrollment, Assignment, CorporateHolidays)
 
 
 # Create your views here.
@@ -42,7 +42,7 @@ class OwnerMixin(object):
     def get_queryset(self):
         '''
         Generic Mixin
-        Queries the the courses by the creator{TeacherProfile} 
+        Queries the the courses by the creator{TeacherProfile}
         '''
         qs = super(OwnerMixin, self).get_queryset()
         user = TeacherProfile.objects.get(user=self.request.user)
@@ -254,13 +254,23 @@ class AllAssignmentListView(ListView):
     model = Assignment
     template_name = 'assignment_list.html'
     fields = ['title', 'instruction', 'date_due', 'date_created', 'date_updated', 'points_possible', 'category', ]
-
+    queryset = Assignment.objects.all()
     today = datetime.now
 
     def get_context_data(self, **kwargs):
         context = super(AllAssignmentListView, self).get_context_data(**kwargs)
-        context['desktop'] = Assignment.objects.order_by('date_due').filter(course__subject__title__contains='desktop')
-        context['programming'] = Assignment.objects.order_by('date_due').filter(course__subject__title__contains='programming')
+        context['desktop'] = Assignment.objects.order_by('date_due').filter(course__title__icontains='desktop')
+        print(context['desktop'])
+        context['programming'] = Assignment.objects.order_by('date_due').filter(course__title__icontains='programming')
+        context['intro'] = Assignment.objects.order_by('date_due').filter(course__title__icontains='introduction')
+        print(context['intro'])
         print(context['programming'])
         context['today'] = self.today
         return context
+
+
+
+
+class CorporateHolidaysCreateView(CreateView):
+    model = CorporateHolidays
+    template_name = 'course/manage/course/holidays/create_holidays.html'

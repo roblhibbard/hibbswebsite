@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+<div class="main-content-inner">
+    <div class="row">
+        <div class="col-lg-6 col-ml-12">
+            <div class="row">
+                <div class="col-12 mt-5">
+
+                <h3>Create New Period</h3>
+
+                <form action="" method="post">
+                    {{ form|crispy }}
+                    {% csrf_token %}
+
+                    <input type="submit" value="Save Content">
+                </form>
+                </div>
+        </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

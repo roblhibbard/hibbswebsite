@@ -1,18 +1,20 @@
 {% extends "navbar.html" %}
 
+
 {% block content %}
 
-    <div class="row mt-3">
-        <div class="col-sm-4 offset-md-1 top-margin">
+    <div class="row top-margin">
+        <div class="col offset-lg-0">
+            <p class="mt-5"></p>
             <blockquote class="blockquote text-center font-weight-bolder">
                 "Going in one more round when you don’t think you can.That’s what makes all
                 the difference in your life."
                 <footer class="blockquote-footer"><cite title="Source Title">Rocky Balboa</cite></footer>
             </blockquote>
         </div>
-        <div class="col-sm-7">
+        <div class="col">
 
-            <iframe class="float-md-none mr-3 " width="560" height="315"
+            <iframe class="float-md-none mr-3 " width="500" height="250"
                     src="https://www.youtube.com/embed/phN4xAAl8DU"
                     allowfullscreen></iframe>
         </div>
@@ -23,33 +25,32 @@
         <div class="col offset-lg-0">
 
             <div class="card-deck">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Make sure you have the Apps needed </h5>
-                        <p class="card-text">If you need help with any of the apps click get help. </p><br><br>
-                        <a href="{% url "support" %}" target="_blank" class="btn btn-primary">Get Help</a>
+
+                    <div class="card body">
+                    <div class="card-body text-center">
+
+
+                        {% include "manage/schedule_small.html" with obj=context %}
+
+
                     </div>
                 </div>
 
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Hibbard's Office Hours </h5>
-                        <p class="card-text">Monday & Thursday  </br> 1:00pm - 2:00pm
-                            </br>  Tuesday & Friday  </br> 11:00am - 12:15pm.<br>
+                        <h5 class="card-title"> Grading Questions <a href="https://docs.google.com/document/d/e/2PACX-1vS-NdTBX8WvKt3X0e2Qz4gD9SfZIFY6v9ZEgGclV4mSnMBc0dUVw8SuEXSHanYT0g/pub"
+                               target="_blank" class="btn btn-danger">More Info</a></h5>
+                        <p class="card-text"> The Nampa School district continues to be </br>
+                            committed in its support of students. We have agreed that student grades will not be
+                            negatively impacted by the current circumstances. We want to support students in their
+                            efforts to continue to learn and not be distracted or worried about a mark in the gradebook.
+                            Curriculum has been planned to prioritize essential skill development and essential content
+                            for each course. Students will work to develop those skills during this time. <br>
+
                         </p>
                     </div>
 
-                </div>
-
-
-                <div class="card mh-75">
-                    <div class="card-body">
-                        <h5 class="card-title">Classroom Weekly Schedules </h5>
-                        <p class="card-text alert-primary">Wondering what time your scheduled class are? </p>
-                        <p> Wondering what your Daily attendance might look like?</p>
-                        <a href="{% url "support" %}" target="_blank" class="btn btn-primary">Get Help</a>
-                    </div>
                 </div>
 
             </div>

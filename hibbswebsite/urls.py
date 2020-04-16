@@ -39,13 +39,15 @@ urlpatterns = [
     path('students/', include('students.urls', namespace='students_profile')),
     path('teachers/', include('teachers.urls', namespace='teacher_profile')),
     path('courses/', include('courses.urls', namespace='courses')),
+    path('schools/', include('schools.urls', namespace='schools')),
 
     path('home/', TemplateView.as_view(template_name='home.html'), name='home'),
     path('dashboard/', TemplateView.as_view(template_name='index.html'), name='dashboard'),
 
     # Templates
     path('alert/', TemplateView.as_view(template_name='alert.html'), name='alert'),
-    path('assignments/', views.AllAssignmentListView.as_view(), name='assignments')
+    path('assignments/', views.AllAssignmentListView.as_view(), name='assignments'),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 
 ]
 

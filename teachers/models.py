@@ -1,7 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth import get_user_model
-
+from ckeditor.fields import RichTextField
 # Create your models here.
 
 
@@ -20,7 +20,7 @@ class TeacherProfile(models.Model):
     first_name = models.CharField(max_length=300, blank=False, null=False)
     other_name = models.CharField(max_length=300, blank=False, null=False)
     last_name = models.CharField(max_length=300, blank=False, null=False)
-    mugshot = models.ImageField(upload_to='teachers/images/%Y/%m/%d', blank=True, null=True)
+    #mugshot = models.ImageField(upload_to='teachers/images/%Y/%m/%d', blank=True, null=True)
     gender = models.CharField(max_length=50, choices=GENDER, default='male')
 
     # teacher_class = models.CharField(max_length=50, choices=Class_Period, default='')
@@ -36,7 +36,7 @@ class TeacherProfile(models.Model):
     )
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
-    address = models.TextField(blank=True)
+    address = RichTextField(blank=True)
 
     class Meta:
         verbose_name = "Teacher's Profile"

@@ -36,18 +36,20 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'whitenoise.runserver_nostatic',  # new!
+    #'whitenoise.runserver_nostatic',  # new!
     'django.contrib.staticfiles',
 
     # third part apps
     'bootstrap4',
     'crispy_forms',
     'embed_video',
-    'social_django',
+    #'social_django',
     'memcache_status',
     'debug_toolbar',
     'bootstrap_datepicker_plus',
     'reset_migrations',
+    'ckeditor',
+    'ckeditor_uploader',
 
     # Local Apps
 
@@ -65,7 +67,7 @@ MIDDLEWARE = [
     'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # new!
+    #'whitenoise.middleware.WhiteNoiseMiddleware',  # new!
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -75,7 +77,7 @@ MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',  # django debug toolbar
 ]
 
-INTERNAL_IPS = ('127.0.0.1',)  # debug toolbar
+INTERNAL_IPS = ('127.0.0.1', 'www.hibbardsclass.org')  # debug toolbar
 
 ROOT_URLCONF = 'hibbswebsite.urls'
 AUTH_USER_MODEL = 'accounts.User'
@@ -145,35 +147,18 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')  # new!
 STATICFILES_DIRS = os.path.join(BASE_DIR, 'static/'),
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'  # new!
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'  # new!
 
 # Authentication
 LOGIN_REDIRECT_URL = reverse_lazy('dashboard')
 LOGOUT_REDIRECT_URL = reverse_lazy('account:login')
 
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-    # 'account.authentication.EmailAuthBackend',
-    'social_core.backends.facebook.FacebookOAuth2',
-    'social_core.backends.twitter.TwitterOAuth',
-    'social_core.backends.google.GoogleOAuth2',
-    'social_core.backends.azuread_tenant.AzureADTenantOAuth2',
 
-]
-
+CKEDITOR_UPLOAD_PATH = "uploads/"
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-# social auth settings
-SOCIAL_AUTH_FACEBOOK_KEY = '216197156419907'  # Facebook App ID
-SOCIAL_AUTH_FACEBOOK_SECRET = '2139027d440ec88580d27a3a59d964e4'  # Facebook App Secret
-SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
-
-SOCIAL_AUTH_AZUREAD_OAUTH2_KEY = 'b424b2ba-3c5d-4d55-bc56-6ad7f2f54ea9'
-SOCIAL_AUTH_AZUREAD_OAUTH2_SECRET = 's2nAFZ2Dnqwr-4:Dc/wz:gV0bEL9b]:z'
-SOCIAL_AUTH_AZUREAD_TENANT_OAUTH2_TENANT_ID = '95e2ed24-7e97-4c57-b128-14017d9f16b9'
 
 CACHES = {
     'default': {
